@@ -81,6 +81,7 @@ main:focus { outline: none; }
 .tarifs thead th { font-size: 0.9rem; color: var(--muted); }
 .tarifs tbody th { font-weight: 400; }
 .tarifs td { white-space: nowrap; font-weight: 700; text-align: right; }
+.tarifs thead th:last-child { text-align: right; }
 /* Phones: one row per line, the price under its name, so large text never scrolls sideways */
 @media (max-width: 599px) {
   .tarifs thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
