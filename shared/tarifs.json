@@ -4,7 +4,7 @@
       "lignes": [
         { "id": "taux-horaire", "nom": { "fr": "Taux horaire", "en": "Hourly rate" }, "prix": 35, "unite": "heure",
           "note": { "fr": "Minimum 1&nbsp;h, ensuite par tranche de 30&nbsp;minutes", "en": "1-hour minimum, then in 30-minute steps" } },
-        { "id": "petit-travail", "nom": { "fr": "Petit travail (moins de 30&nbsp;minutes)", "en": "Small job (under 30 minutes)" }, "prix": 20, "unite": "forfait" }
+        { "id": "petit-travail", "nom": { "fr": "Petit travail (30&nbsp;minutes et moins)", "en": "Small job (30 minutes or less)" }, "prix": 20, "unite": "forfait" }
       ] },
     { "id": "forfaits", "titre": { "fr": "Forfaits", "en": "Flat rates" },
       "lignes": [
@@ -20,10 +20,12 @@
         { "id": "nettoyage", "nom": { "fr": "Nettoyage (intérieur et logiciels)", "en": "Cleaning (inside and software)" }, "taux": "horaire" },
         { "id": "assemblage", "nom": { "fr": "Assemblage d’un ordinateur", "en": "Computer assembly" }, "taux": "horaire" },
         { "id": "mise-a-niveau", "nom": { "fr": "Mise à niveau (SSD, RAM…)", "en": "Upgrade (SSD, RAM…)" }, "taux": "horaire",
-          "note": { "fr": "Pièces au prix coûtant; tarif petit travail si moins de 30&nbsp;minutes", "en": "Parts at cost; small-job rate if under 30 minutes" } },
+          "note": { "fr": "Pièces au prix coûtant; tarif petit travail si 30&nbsp;minutes et moins", "en": "Parts at cost; small-job rate if 30 minutes or less" } },
         { "id": "distance", "nom": { "fr": "Soutien à distance", "en": "Remote support" }, "taux": "horaire",
-          "note": { "fr": "Tarif petit travail si moins de 30&nbsp;minutes", "en": "Small-job rate if under 30 minutes" } },
-        { "id": "configuration", "nom": { "fr": "Configuration et réseau", "en": "Setup and network" }, "taux": "horaire" }
+          "note": { "fr": "Tarif petit travail si 30&nbsp;minutes et moins", "en": "Small-job rate if 30 minutes or less" } },
+        { "id": "configuration", "nom": { "fr": "Configuration et réseau", "en": "Setup and network" }, "taux": "horaire" },
+        { "id": "console", "nom": { "fr": "Réparation mineure de console de jeu", "en": "Minor game console repair" }, "taux": "horaire",
+          "note": { "fr": "Appelez pour savoir si c’est faisable; pièces au prix coûtant", "en": "Call to find out if it can be done; parts at cost" } }
       ] },
     { "id": "evaluation", "titre": { "fr": "Sur évaluation", "en": "Quote after review" },
       "lignes": [

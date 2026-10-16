@@ -88,14 +88,14 @@ class Pure(unittest.TestCase):
         self.assertEqual(len(ci.slug_problems({'en': {}, 'aliases': {'tarifs': 'contact'}}, frozenset({'tarifs'}))), 1)
 
     def test_phone_same_in_both(self):
-        files = {'shared/libelles.html': '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span>',
-                 'shared/libelles.en.html': '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span>'}
+        same = '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span><span data-text="courriel">a@b.ca</span>'
+        files = {'shared/libelles.html': same, 'shared/libelles.en.html': same}
         self.assertEqual(ci.phone_problems(files.get), [])
         files['shared/libelles.en.html'] = files['shared/libelles.en.html'].replace('+14183911620', '+14183911621')
         self.assertEqual(len(ci.phone_problems(files.get)), 1)
 
     def test_phone_link_digits_only(self):
-        files = {'shared/libelles.html': '<span data-text="tel">418</span><span data-text="tel-lien">418-391</span>'}
+        files = {'shared/libelles.html': '<span data-text="tel">418</span><span data-text="tel-lien">418-391</span><span data-text="courriel">a@b.ca</span>'}
         files['shared/libelles.en.html'] = files['shared/libelles.html']
         self.assertEqual(len(ci.phone_problems(files.get)), 1)
 
@@ -109,7 +109,18 @@ class Pure(unittest.TestCase):
 
     def test_phone_missing_reported(self):
         files = {'shared/libelles.html': '<span data-text="a">A</span>', 'shared/libelles.en.html': '<span data-text="a">A</span>'}
-        self.assertEqual(len(ci.phone_problems(files.get)), 2)
+        self.assertEqual(len(ci.phone_problems(files.get)), 3)
+
+
+    def test_slugs_english_word_is_another_page_id(self):
+        self.assertEqual(len(ci.slug_problems({'en': {'services': 'contact'}, 'aliases': {}}, frozenset({'services', 'contact'}))), 1)
+        self.assertEqual(ci.slug_problems({'en': {'services': 'services'}, 'aliases': {}}, frozenset({'services'})), [])
+
+
+    def test_email_same_in_both(self):
+        fr = '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span><span data-text="courriel">a@b.ca</span>'
+        files = {'shared/libelles.html': fr, 'shared/libelles.en.html': fr.replace('a@b.ca', 'x@b.ca')}
+        self.assertEqual(len(ci.phone_problems(files.get)), 1)
 
 
 if __name__ == '__main__':

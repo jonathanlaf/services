@@ -13,7 +13,7 @@ TWINNED = ('shared/',)
 LABELS = 'shared/libelles.html'
 TARIFS = 'shared/tarifs.json'
 SLUGS = 'shared/slugs.json'
-SAME_VALUE = ('tel', 'tel-lien')  # label keys whose text is identical in both languages
+SAME_VALUE = ('tel', 'tel-lien', 'courriel')  # label keys whose text is identical in both languages
 UNITS = ('heure', 'forfait')
 
 
@@ -119,13 +119,15 @@ def slug_problems(data, live=frozenset()):
                  for v in sorted({v for v in values if values.count(v) > 1}, key=str)]
     problems += ['{} English word "{}" (for "{}") is also a French word'.format(SLUGS, v, k) for k, v in en.items()
                  if v != k and v in en and en[v] != v]
+    problems += ['{} English word "{}" (for "{}") is the id of another page'.format(SLUGS, v, k) for k, v in en.items()
+                 if v != k and v in live and v not in en]
     problems += ['{} old id "{}" is a current id: it would send that page elsewhere'.format(SLUGS, k) for k in aliases if k in live]
     problems += ['{} old id "{}" leads to "{}", which is itself an old id'.format(SLUGS, k, v) for k, v in aliases.items() if v in aliases]
     return problems
 
 
 def phone_problems(read):
-    """The phone number is the same in both label files, and its link value is + and digits only."""
+    """The phone number and email are the same in both label files, and its link value is + and digits only."""
     a, b = read(LABELS), read(twin(LABELS))
     if a is None or b is None:
         return []

@@ -6,12 +6,12 @@ Context and rules for AI coding agents working on this repository.
 
 This file (and `CLAUDE.md`) is committed and public. Never write in it: personal information (phone numbers, addresses,
 emails, client names), credentials, tokens, internal URLs, local machine paths, or anything learned from private
-conversations. Describe rules and conventions only. Content the site publishes (the phone number) lives in the site's
+conversations. Describe rules and conventions only. Content the site publishes (the phone number, the email) lives in the site's
 HTML files (`shared/libelles*.html`), not here. The drop-off address is never published anywhere in the repo.
 
 ## What the project is
 
-A static, bilingual site for a PC and Mac technician (remote support and drop-off, Baie-des-Chaleurs), French at `/`
+A static, bilingual site for a PC and Mac technician (by appointment: remote anywhere, drop-off, or home visits for setup within the Baie-des-Chaleurs), French at `/`
 and English at `/en/`, served by GitHub Pages from `main` (custom domain in `CNAME`). No build step, no framework, no npm:
 plain HTML, CSS and one JavaScript file. Pages are loaded with `fetch`, so test through a local server
 (`python3 -m http.server 8765`), not `file://`. Code standards follow the sibling `kohai` project.
@@ -27,8 +27,8 @@ plain HTML, CSS and one JavaScript file. Pages are loaded with `fetch`, so test 
   `?v=YYYYMMDD<letter>`: bump it on both files in both shells whenever one of them changes.
 - `shared/<page>.html` + `shared/<page>.en.html` — one page each: `accueil`, `services`, `tarifs`, `contact`. Each holds one
   `<section data-view="<page>" data-title="…">`.
-- `shared/libelles.html` (+ `.en.html`) — menu and interface labels as `<span data-text="key">…</span>`, and the phone
-  number (`tel`: as displayed, `tel-lien`: `+1` and digits only; identical in both files).
+- `shared/libelles.html` (+ `.en.html`) — menu and interface labels as `<span data-text="key">…</span>`, the phone
+  number (`tel`: as displayed, `tel-lien`: `+1` and digits only) and the email (`courriel`); all identical in both files.
 - `shared/tarifs.json` — every price, in both languages: the one source of the prices table (`[data-tarifs]` slot in
   `shared/tarifs.html`). A line has `prix` + `unite` (`heure` or `forfait`), or `"taux": "horaire"` (shown as the hourly
   rate, taken from the line `taux-horaire`), or `"evaluation": true` (quote after review). Change a price here only.

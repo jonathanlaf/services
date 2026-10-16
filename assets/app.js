@@ -95,12 +95,15 @@
   function T(key, fallback) { return has(texts, key) ? texts[key] : fallback; }
   function pageName(id) { return plain(T('menu-' + id, PAGES[id].name)); }
 
-  // ---------- Phone ----------
+  // ---------- Phone and email ----------
   function phoneLinks(node) {
     var number = plain(T('tel', '418-391-1620')), target = plain(T('tel-lien', '+14183911620'));
+    var email = plain(T('courriel', 'me@jonathanlafleur.ca'));
     node.querySelectorAll('[data-tel]').forEach(function (a) { a.href = 'tel:' + target; });
     node.querySelectorAll('[data-sms]').forEach(function (a) { a.href = 'sms:' + target; });
     node.querySelectorAll('[data-phone]').forEach(function (el) { el.textContent = number; });
+    node.querySelectorAll('[data-mail]').forEach(function (a) { a.href = 'mailto:' + email; });
+    node.querySelectorAll('[data-email]').forEach(function (el) { el.textContent = email; });
   }
 
   // ---------- Preferences ----------
@@ -164,26 +167,22 @@
     var s = n % 1 === 0 ? String(n) : n.toFixed(2);
     return LANG === 'en' ? '$' + s : s.replace('.', ',') + '&nbsp;$';
   }
-  function hourlyRate(data) {
-    var found = null;
-    data.groupes.forEach(function (g) { g.lignes.forEach(function (l) { if (l.id === 'taux-horaire') found = l; }); });
-    return found;
-  }
-  function priceHtml(line, rate) {
+  function priceHtml(line) {
     if (line.evaluation) return T('sur-evaluation', 'Sur évaluation');
-    if (line.taux === 'horaire') return T('taux-horaire', 'Au taux horaire') + (rate ? ' (' + priceHtml(rate) + ')' : '');
+    if (line.taux === 'horaire') return T('taux-horaire', 'Au taux horaire');
     return '<span class="montant">' + formatPrice(line.prix) + '</span>' + (line.unite === 'heure' ? ' ' + T('unite-heure', 'de l’heure') : '');
   }
-  function lineHtml(line, rate) {
-    return '<tr><th scope="row">' + L(line.nom) + (line.note ? '<br><small class="note">' + L(line.note) + '</small>' : '') +
-      '</th><td>' + priceHtml(line, rate) + '</td></tr>';
+  function lineHtml(line) {
+    return '<tr role="row"><th scope="row" role="rowheader">' + L(line.nom) + (line.note ? '<br><small class="note">' + L(line.note) + '</small>' : '') +
+      '</th><td role="cell">' + priceHtml(line) + '</td></tr>';
   }
+  // Explicit roles: Safari stops announcing a table once the phone layout shows its rows as blocks
   function tarifsHtml(data) {
-    var rate = hourlyRate(data);
     return data.groupes.map(function (g) {
-      return '<table class="tarifs" id="' + escapeHtml(g.id) + '"><caption>' + L(g.titre) + '</caption>' +
-        '<thead><tr><th scope="col">' + T('col-service', 'Service') + '</th><th scope="col">' + T('col-prix', 'Prix') + '</th></tr></thead>' +
-        '<tbody>' + g.lignes.map(function (l) { return lineHtml(l, rate); }).join('') + '</tbody></table>';
+      return '<table class="tarifs" id="' + escapeHtml(g.id) + '" role="table"><caption>' + L(g.titre) + '</caption>' +
+        '<thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">' + T('col-service', 'Service') +
+        '</th><th scope="col" role="columnheader">' + T('col-prix', 'Prix') + '</th></tr></thead>' +
+        '<tbody role="rowgroup">' + g.lignes.map(lineHtml).join('') + '</tbody></table>';
     }).join('');
   }
   // The page keeps its text if the prices cannot load: the slot says so instead
@@ -214,8 +213,8 @@
     if (target) target.scrollIntoView(); else { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   function showLoadError(err) {
-    view.innerHTML = '<p class="error">' + T('erreur-chargement', 'Impossible de charger le contenu. Rechargez la page.') +
-      ' <small>(' + escapeHtml(err.message) + ')</small></p>';
+    console.error(err);  // the technical detail is for the console, not the reader
+    view.innerHTML = '<p class="error">' + T('erreur-chargement', 'Impossible de charger le contenu. Rechargez la page.') + '</p>';
   }
   var routeToken = 0;
   function route() {
