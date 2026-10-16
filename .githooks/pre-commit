@@ -1,0 +1,3 @@
+#!/bin/bash
+# Both languages are required: see .githooks/check-i18n.py (twins, labels, phone, views, tarifs.json, slugs.json).
+exec python3 "$(dirname "$0")/check-i18n.py" --staged
