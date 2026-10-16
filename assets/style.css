@@ -73,3 +73,19 @@ main:focus { outline: none; }
 @media (min-width: 900px) { .callbar { display: none; } body { padding-bottom: 0; } }
 
 .site-foot { max-width: 60rem; margin: 2rem auto 0; padding: 1rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+/* Prices */
+.tarifs { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--surface); border-radius: 1rem; overflow: hidden; }
+.tarifs caption { text-align: left; font-size: 1.3rem; font-weight: 700; padding: 0 0 0.5rem; }
+.tarifs th, .tarifs td { text-align: left; vertical-align: top; padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); }
+.tarifs thead th { font-size: 0.9rem; color: var(--muted); }
+.tarifs tbody th { font-weight: 400; }
+.tarifs td { white-space: nowrap; font-weight: 700; text-align: right; }
+/* Phones: one row per line, the price under its name, so large text never scrolls sideways */
+@media (max-width: 599px) {
+  .tarifs thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tarifs, .tarifs tbody, .tarifs tr, .tarifs th, .tarifs td { display: block; }
+  .tarifs caption { display: block; }
+  .tarifs tbody th { border-bottom: 0; padding-bottom: 0.25rem; }
+  .tarifs td { text-align: left; white-space: normal; padding-top: 0; }
+}

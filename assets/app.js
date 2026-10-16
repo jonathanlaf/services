@@ -156,6 +156,46 @@
     node.querySelectorAll('a[href^="#/"]').forEach(function (a) { a.setAttribute('href', link(a.getAttribute('href'))); });
   }
 
+  // ---------- Prices (shared/tarifs.json) ----------
+  var TARIFS = ROOT + 'shared/tarifs.json';
+  // 35 → « 35 $ » / “$35”; 17.5 → « 17,50 $ » / “$17.50”
+  function formatPrice(amount) {
+    var n = Math.round(amount * 100) / 100;
+    var s = n % 1 === 0 ? String(n) : n.toFixed(2);
+    return LANG === 'en' ? '$' + s : s.replace('.', ',') + '&nbsp;$';
+  }
+  function hourlyRate(data) {
+    var found = null;
+    data.groupes.forEach(function (g) { g.lignes.forEach(function (l) { if (l.id === 'taux-horaire') found = l; }); });
+    return found;
+  }
+  function priceHtml(line, rate) {
+    if (line.evaluation) return T('sur-evaluation', 'Sur évaluation');
+    if (line.taux === 'horaire') return T('taux-horaire', 'Au taux horaire') + (rate ? ' (' + priceHtml(rate) + ')' : '');
+    return formatPrice(line.prix) + (line.unite === 'heure' ? ' ' + T('unite-heure', 'de l’heure') : '');
+  }
+  function lineHtml(line, rate) {
+    return '<tr><th scope="row">' + L(line.nom) + (line.note ? '<br><small class="note">' + L(line.note) + '</small>' : '') +
+      '</th><td>' + priceHtml(line, rate) + '</td></tr>';
+  }
+  function tarifsHtml(data) {
+    var rate = hourlyRate(data);
+    return data.groupes.map(function (g) {
+      return '<table class="tarifs" id="' + escapeHtml(g.id) + '"><caption>' + L(g.titre) + '</caption>' +
+        '<thead><tr><th scope="col">' + T('col-service', 'Service') + '</th><th scope="col">' + T('col-prix', 'Prix') + '</th></tr></thead>' +
+        '<tbody>' + g.lignes.map(function (l) { return lineHtml(l, rate); }).join('') + '</tbody></table>';
+    }).join('');
+  }
+  // The page keeps its text if the prices cannot load: the slot says so instead
+  FILL.tarifs = function (frag) {
+    var slot = frag.querySelector('[data-tarifs]');
+    if (!slot) return null;
+    return fetchText(TARIFS).then(JSON.parse).then(function (data) { slot.innerHTML = tarifsHtml(data); }).catch(function () {
+      slot.innerHTML = '<p class="error">' + T('erreur-tarifs', 'Les tarifs n’ont pas pu être chargés. Appelez-nous pour les connaître.') + '</p>';
+    });
+  };
+  window.servicesTest = { formatPrice: formatPrice };
+
   // ---------- Routes ----------
   function parseRoute() {
     var parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(slugFromAny);

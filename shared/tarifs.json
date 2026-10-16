@@ -1,0 +1,34 @@
+{
+  "groupes": [
+    { "id": "main-oeuvre", "titre": { "fr": "Main-d’œuvre", "en": "Labour" },
+      "lignes": [
+        { "id": "taux-horaire", "nom": { "fr": "Taux horaire", "en": "Hourly rate" }, "prix": 35, "unite": "heure",
+          "note": { "fr": "Minimum 1&nbsp;h, ensuite par tranche de 30&nbsp;minutes", "en": "1-hour minimum, then in 30-minute steps" } },
+        { "id": "petit-travail", "nom": { "fr": "Petit travail (moins de 30&nbsp;minutes)", "en": "Small job (under 30 minutes)" }, "prix": 20, "unite": "forfait" }
+      ] },
+    { "id": "forfaits", "titre": { "fr": "Forfaits", "en": "Flat rates" },
+      "lignes": [
+        { "id": "diagnostic", "nom": { "fr": "Diagnostic", "en": "Diagnostic" }, "prix": 50, "unite": "forfait",
+          "note": { "fr": "Gratuit si vous faites faire les travaux", "en": "Free if you go ahead with the work" } },
+        { "id": "virus", "nom": { "fr": "Retrait de virus", "en": "Virus removal" }, "prix": 90, "unite": "forfait" },
+        { "id": "reinstallation", "nom": { "fr": "Réinstallation du système", "en": "System reinstall" }, "prix": 70, "unite": "forfait" },
+        { "id": "reinstallation-transfert", "nom": { "fr": "Réinstallation du système et transfert de données", "en": "System reinstall and data transfer" }, "prix": 100, "unite": "forfait" },
+        { "id": "transfert", "nom": { "fr": "Transfert de données", "en": "Data transfer" }, "prix": 70, "unite": "forfait" }
+      ] },
+    { "id": "a-l-heure", "titre": { "fr": "À l’heure", "en": "Hourly" },
+      "lignes": [
+        { "id": "nettoyage", "nom": { "fr": "Nettoyage (intérieur et logiciels)", "en": "Cleaning (inside and software)" }, "taux": "horaire" },
+        { "id": "assemblage", "nom": { "fr": "Assemblage d’un ordinateur", "en": "Computer assembly" }, "taux": "horaire" },
+        { "id": "mise-a-niveau", "nom": { "fr": "Mise à niveau (SSD, RAM…)", "en": "Upgrade (SSD, RAM…)" }, "taux": "horaire",
+          "note": { "fr": "Pièces au prix coûtant; tarif petit travail si moins de 30&nbsp;minutes", "en": "Parts at cost; small-job rate if under 30 minutes" } },
+        { "id": "distance", "nom": { "fr": "Soutien à distance", "en": "Remote support" }, "taux": "horaire",
+          "note": { "fr": "Tarif petit travail si moins de 30&nbsp;minutes", "en": "Small-job rate if under 30 minutes" } },
+        { "id": "configuration", "nom": { "fr": "Configuration et réseau", "en": "Setup and network" }, "taux": "horaire" }
+      ] },
+    { "id": "evaluation", "titre": { "fr": "Sur évaluation", "en": "Quote after review" },
+      "lignes": [
+        { "id": "recuperation", "nom": { "fr": "Récupération de données", "en": "Data recovery" }, "evaluation": true,
+          "note": { "fr": "Chaque cas est étudié avant de commencer", "en": "Each case is reviewed before starting" } }
+      ] }
+  ]
+}
