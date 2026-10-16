@@ -2,22 +2,71 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Services — Jonathan Lafleur</title>
-<style>
-  :root { color-scheme: light dark; --bg: #fafafa; --fg: #1a1a1a; --muted: #666; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #141414; --fg: #eee; --muted: #999; } }
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; padding: 0 16px; }
-  main { text-align: center; }
-  h1 { font-weight: 600; margin: 0 0 .5rem; }
-  p { color: var(--muted); margin: .25rem 0; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jonathan Lafleur · Technicien PC et Mac</title>
+<meta name="description" content="Technicien PC et Mac dans la Baie-des-Chaleurs : dépannage, virus, mises à niveau, transfert de données, soutien à distance. Appelez ou textez.">
+<meta name="color-scheme" content="light dark">
+<link rel="alternate" hreflang="fr" href="https://services.jonathanlafleur.ca/">
+<link rel="alternate" hreflang="en" href="https://services.jonathanlafleur.ca/en/">
+<link rel="alternate" hreflang="x-default" href="https://services.jonathanlafleur.ca/">
+<script>
+  (function () {
+    try {
+      var d = document.documentElement;
+      var t = localStorage.getItem('services-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      var s = localStorage.getItem('services-taille');
+      if (s === 'grande' || s === 'tres-grande') d.setAttribute('data-taille', s);
+      // Reader's language: the saved choice, else the browser's (first of fr/en in its list), saved once.
+      // Only the home page follows it; deep links keep their language. Crawlers are never redirected.
+      if (!/bot|crawl|spider|slurp/i.test(navigator.userAgent)) {
+        var lang = localStorage.getItem('services-lang');
+        if (lang !== 'fr' && lang !== 'en') {
+          var langs = navigator.languages || [navigator.language || ''];
+          lang = 'fr';
+          for (var i = 0; i < langs.length; i++) {
+            var p = String(langs[i]).slice(0, 2).toLowerCase();
+            if (p === 'fr' || p === 'en') { lang = p; break; }
+          }
+          localStorage.setItem('services-lang', lang);
+        }
+        if (lang === 'en' && (location.hash === '' || location.hash === '#/')) location.replace('en/' + location.hash);
+      }
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css?v=20261016b">
+<script src="assets/app.js?v=20261016b" defer></script>
 </head>
 <body>
-<main>
-  <h1>Services</h1>
-  <p>Site en construction.</p>
-  <p lang="en">Under construction.</p>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#/">Jonathan Lafleur · PC et Mac</a>
+    <nav aria-label="Menu principal"><ul class="menu" id="menu"></ul></nav>
+    <div class="tools">
+      <a id="lang-link" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
+      <div class="switch" role="group" aria-label="Taille du texte">
+        <button type="button" data-taille-choice="normale" aria-pressed="true" aria-label="Taille du texte : normale">A</button>
+        <button type="button" data-taille-choice="grande" aria-pressed="false" aria-label="Taille du texte : grande">A+</button>
+        <button type="button" data-taille-choice="tres-grande" aria-pressed="false" aria-label="Taille du texte : très grande">A++</button>
+      </div>
+      <div class="switch" role="group" aria-label="Thème">
+        <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
+        <button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q 75 0 150 6 T 300 6 T 450 6 T 600 6 T 750 6 T 900 6 T 1050 6 T 1200 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+</header>
+<main id="view" tabindex="-1">
+  <p>Chargement…</p>
+  <noscript><p>Ce site a besoin de JavaScript. Appelez au 418-391-1620.</p></noscript>
 </main>
+<footer class="site-foot">Jonathan Lafleur · Technicien PC et Mac · Baie-des-Chaleurs · Aucune taxe applicable</footer>
+<nav class="callbar" aria-label="Joindre le technicien">
+  <a class="btn" data-tel href="tel:+14183911620">Appeler</a>
+  <a class="btn btn-alt" data-sms href="sms:+14183911620">Texto</a>
+</nav>
 </body>
 </html>

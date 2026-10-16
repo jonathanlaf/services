@@ -1,0 +1,75 @@
+/* Coastal theme: sand and navy, sea-green actions, sunset-coral highlights. Sizes in rem so the font-size control scales everything. */
+:root {
+  --bg: #f7f1e6; --surface: #fffaf1; --fg: #13263a; --muted: #4d5b69; --line: #e2d7c4;
+  --accent: #1a6b5f; --on-accent: #ffffff; --accent-2: #b8532f; --bar: rgba(247, 241, 230, 0.94);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --echelle: 1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1c2b; --surface: #172a3d; --fg: #ede6d8; --muted: #a9b4bf; --line: #2a3f55;
+    --accent: #4fb3a2; --on-accent: #0f1c2b; --accent-2: #e88b6b; --bar: rgba(15, 28, 43, 0.94);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1c2b; --surface: #172a3d; --fg: #ede6d8; --muted: #a9b4bf; --line: #2a3f55;
+  --accent: #4fb3a2; --on-accent: #0f1c2b; --accent-2: #e88b6b; --bar: rgba(15, 28, 43, 0.94);
+  color-scheme: dark;
+}
+/* Font size: 18px base, then 125 % and 150 % */
+:root[data-taille="grande"] { --echelle: 1.25; }
+:root[data-taille="tres-grande"] { --echelle: 1.5; }
+html { font-size: calc(112.5% * var(--echelle)); scroll-padding-top: 6rem; }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); line-height: 1.6;
+  overflow-wrap: break-word; padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+}
+a { color: var(--accent); text-underline-offset: 0.15em; }
+:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 2px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+button, .btn, .menu a, .tools a { min-height: 48px; min-width: 48px; font: inherit; }
+
+/* Top bar */
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bar); border-bottom: 1px solid var(--line); }
+/* On phones the menu and tools take several lines: let them scroll away; the call bar stays */
+@media (max-width: 899px) { .topbar { position: static; } html { scroll-padding-top: 1rem; } }
+.topbar-in { max-width: 60rem; margin: 0 auto; padding: 0.25rem 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
+.brand { font-weight: 700; color: var(--fg); text-decoration: none; display: inline-flex; align-items: center; min-height: 48px; margin-right: auto; }
+.menu { display: flex; flex-wrap: wrap; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+.menu a { display: inline-flex; align-items: center; padding: 0 0.75rem; border-radius: 0.5rem; color: var(--fg); }
+.menu a[aria-current="page"] { background: var(--surface); font-weight: 700; text-decoration-color: var(--accent-2); text-decoration-thickness: 3px; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.tools a { display: inline-flex; align-items: center; justify-content: center; }
+.switch { display: inline-flex; border: 1px solid var(--line); border-radius: 0.5rem; overflow: hidden; }
+.switch button { background: var(--surface); color: var(--fg); border: 0; border-right: 1px solid var(--line); padding: 0 0.6rem; cursor: pointer; }
+.switch button:last-child { border-right: 0; }
+.switch button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+.wave { display: block; width: 100%; height: 0.75rem; color: var(--line); }
+
+/* Pages */
+main { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+main:focus { outline: none; }
+.page h1 { font-size: 1.9rem; line-height: 1.25; margin: 1rem 0 0.5rem; }
+.page h2 { font-size: 1.4rem; margin: 2rem 0 0.5rem; }
+.lead { font-size: 1.15rem; color: var(--muted); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; padding: 0; list-style: none; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 1rem; padding: 1rem 1.25rem; }
+.card h2, .card h3 { margin-top: 0; }
+.btn { display: inline-flex; align-items: center; justify-content: center; white-space: pre-wrap; padding: 0.5rem 1.25rem; border-radius: 999px;
+  background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border: 2px solid var(--accent); }
+.btn-alt { background: transparent; color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+.note { color: var(--muted); }
+.error { border-left: 4px solid var(--accent-2); padding-left: 0.75rem; }
+
+/* Call bar: always reachable on phones */
+.callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; gap: 0.5rem; justify-content: center;
+  padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px)); background: var(--bar); border-top: 1px solid var(--line); }
+.callbar .btn { flex: 1 1 0; max-width: 16rem; }
+@media (min-width: 900px) { .callbar { display: none; } body { padding-bottom: 0; } }
+
+.site-foot { max-width: 60rem; margin: 2rem auto 0; padding: 1rem; color: var(--muted); border-top: 1px solid var(--line); }
