@@ -25,12 +25,16 @@
           "note": { "fr": "Tarif petit travail si 30&nbsp;minutes et moins", "en": "Small-job rate if 30 minutes or less" } },
         { "id": "configuration", "nom": { "fr": "Configuration et réseau", "en": "Setup and network" }, "taux": "horaire" },
         { "id": "console", "nom": { "fr": "Réparation mineure de console de jeu", "en": "Minor game console repair" }, "taux": "horaire",
-          "note": { "fr": "Appelez pour savoir si c’est faisable; pièces au prix coûtant", "en": "Call to find out if it can be done; parts at cost" } }
+          "note": { "fr": "Appelez pour savoir si c’est faisable; pièces au prix coûtant", "en": "Call to find out if it can be done; parts at cost" } },
+        { "id": "imprimante-3d", "nom": { "fr": "Entretien et calibration d’imprimante 3D", "en": "3D printer maintenance and calibration" }, "taux": "horaire",
+          "note": { "fr": "Pièces au prix coûtant", "en": "Parts at cost" } }
       ] },
     { "id": "evaluation", "titre": { "fr": "Sur évaluation", "en": "Quote after review" },
       "lignes": [
         { "id": "recuperation", "nom": { "fr": "Récupération de données", "en": "Data recovery" }, "evaluation": true,
-          "note": { "fr": "Chaque cas est étudié avant de commencer", "en": "Each case is reviewed before starting" } }
+          "note": { "fr": "Chaque cas est étudié avant de commencer", "en": "Each case is reviewed before starting" } },
+        { "id": "impression", "nom": { "fr": "Impression de projets 3D", "en": "3D project printing" }, "evaluation": true,
+          "note": { "fr": "Selon la taille, le matériau et le temps d’impression", "en": "Depends on size, material and print time" } }
       ] }
   ]
 }
