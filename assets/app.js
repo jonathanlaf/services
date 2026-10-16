@@ -172,7 +172,7 @@
   function priceHtml(line, rate) {
     if (line.evaluation) return T('sur-evaluation', 'Sur évaluation');
     if (line.taux === 'horaire') return T('taux-horaire', 'Au taux horaire') + (rate ? ' (' + priceHtml(rate) + ')' : '');
-    return formatPrice(line.prix) + (line.unite === 'heure' ? ' ' + T('unite-heure', 'de l’heure') : '');
+    return '<span class="montant">' + formatPrice(line.prix) + '</span>' + (line.unite === 'heure' ? ' ' + T('unite-heure', 'de l’heure') : '');
   }
   function lineHtml(line, rate) {
     return '<tr><th scope="row">' + L(line.nom) + (line.note ? '<br><small class="note">' + L(line.note) + '</small>' : '') +

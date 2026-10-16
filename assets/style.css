@@ -80,7 +80,8 @@ main:focus { outline: none; }
 .tarifs th, .tarifs td { text-align: left; vertical-align: top; padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); }
 .tarifs thead th { font-size: 0.9rem; color: var(--muted); }
 .tarifs tbody th { font-weight: 400; }
-.tarifs td { white-space: nowrap; font-weight: 700; text-align: right; }
+.tarifs td { font-weight: 700; text-align: right; }
+.montant { white-space: nowrap; }  /* an amount never splits; the words around it may wrap */
 .tarifs thead th:last-child { text-align: right; }
 /* Phones: one row per line, the price under its name, so large text never scrolls sideways */
 @media (max-width: 599px) {
