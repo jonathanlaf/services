@@ -179,7 +179,9 @@
   // Explicit roles: Safari stops announcing a table once the phone layout shows its rows as blocks
   function tarifsHtml(data) {
     return data.groupes.map(function (g) {
-      return '<table class="tarifs" id="' + escapeHtml(g.id) + '" role="table"><caption>' + L(g.titre) + '</caption>' +
+      // The group title is a heading above the table, not a <caption>: on phones the table is shown as blocks and a caption lands inside its box
+      return '<h3 class="tarifs-titre" id="titre-' + escapeHtml(g.id) + '">' + L(g.titre) + '</h3>' +
+        '<table class="tarifs" id="' + escapeHtml(g.id) + '" role="table" aria-labelledby="titre-' + escapeHtml(g.id) + '">' +
         '<thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">' + T('col-service', 'Service') +
         '</th><th scope="col" role="columnheader">' + T('col-prix', 'Prix') + '</th></tr></thead>' +
         '<tbody role="rowgroup">' + g.lignes.map(lineHtml).join('') + '</tbody></table>';
