@@ -17,7 +17,7 @@
     'accueil': { url: localized('shared/accueil.html'), name: 'Accueil' },
     'services': { url: localized('shared/services.html'), name: 'Services' },
     'tarifs': { url: localized('shared/tarifs.html'), name: 'Tarifs' },
-    'contact': { url: localized('shared/contact.html'), name: 'Réserver' }
+    'contact': { url: localized('shared/contact.html'), name: 'Prendre rendez-vous' }
   };
   Object.setPrototypeOf(PAGES, null);  // so a route like #/constructor is not taken for a page
   var ORDER = ['accueil', 'services', 'tarifs', 'contact'];
