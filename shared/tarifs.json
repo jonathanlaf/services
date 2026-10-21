@@ -1,40 +1,142 @@
 {
   "groupes": [
-    { "id": "main-oeuvre", "titre": { "fr": "Main-d’œuvre", "en": "Labour" },
+    {
+      "id": "main-oeuvre",
+      "titre": {
+        "fr": "Tarifs de base",
+        "en": "Base rates"
+      },
       "lignes": [
-        { "id": "taux-horaire", "nom": { "fr": "Taux horaire", "en": "Hourly rate" }, "prix": 35, "unite": "heure",
-          "note": { "fr": "Minimum 1&nbsp;h, ensuite par tranche de 30&nbsp;minutes", "en": "1-hour minimum, then in 30-minute steps" } },
-        { "id": "petit-travail", "nom": { "fr": "Petit travail (30&nbsp;minutes et moins)", "en": "Small job (30 minutes or less)" }, "prix": 20, "unite": "forfait" }
-      ] },
-    { "id": "forfaits", "titre": { "fr": "Forfaits", "en": "Flat rates" },
+        {
+          "id": "petit-travail",
+          "nom": {
+            "fr": "Petit travail (30&nbsp;minutes et moins)",
+            "en": "Small job (30 minutes or less)"
+          },
+          "prix": 20,
+          "unite": "forfait",
+          "note": {
+            "fr": "À distance ou à l’atelier seulement. Ne s’applique pas aux visites à domicile ni aux services à prix fixe.",
+            "en": "Remote or workshop work only. Does not apply to home visits or fixed-price services."
+          }
+        },
+        {
+          "id": "taux-horaire",
+          "nom": {
+            "fr": "Taux horaire",
+            "en": "Hourly rate"
+          },
+          "prix": 35,
+          "unite": "heure",
+          "note": {
+            "fr": "Minimum 1 h dès 31 minutes à distance ou à l’atelier. À domicile : minimum 1 h, déplacement compris.",
+            "en": "1-hour minimum from 31 minutes remotely or at the workshop. Home visits: 1-hour minimum, including travel time."
+          }
+        }
+      ]
+    },
+    {
+      "id": "forfaits",
+      "titre": {
+        "fr": "Services à prix fixe",
+        "en": "Fixed-price services"
+      },
       "lignes": [
-        { "id": "diagnostic", "nom": { "fr": "Diagnostic", "en": "Diagnostic" }, "prix": 50, "unite": "forfait",
-          "note": { "fr": "Gratuit si vous faites faire les travaux", "en": "Free if you go ahead with the work" } },
-        { "id": "virus", "nom": { "fr": "Retrait de virus", "en": "Virus removal" }, "prix": 90, "unite": "forfait" },
-        { "id": "reinstallation", "nom": { "fr": "Réinstallation du système", "en": "System reinstall" }, "prix": 70, "unite": "forfait" },
-        { "id": "reinstallation-transfert", "nom": { "fr": "Réinstallation du système et transfert de données", "en": "System reinstall and data transfer" }, "prix": 100, "unite": "forfait" },
-        { "id": "transfert", "nom": { "fr": "Transfert de données", "en": "Data transfer" }, "prix": 70, "unite": "forfait" }
-      ] },
-    { "id": "a-l-heure", "titre": { "fr": "À l’heure", "en": "Hourly" },
+        {
+          "id": "diagnostic",
+          "nom": {
+            "fr": "Diagnostic",
+            "en": "Diagnostic"
+          },
+          "prix": 50,
+          "unite": "forfait",
+          "note": {
+            "fr": "Gratuit si vous faites faire les travaux",
+            "en": "Free if you go ahead with the work"
+          }
+        },
+        {
+          "id": "virus",
+          "nom": {
+            "fr": "Retrait de virus",
+            "en": "Virus removal"
+          },
+          "prix": 90,
+          "unite": "forfait"
+        },
+        {
+          "id": "reinstallation",
+          "nom": {
+            "fr": "Réinstallation du système",
+            "en": "System reinstall"
+          },
+          "prix": 70,
+          "unite": "forfait"
+        },
+        {
+          "id": "reinstallation-transfert",
+          "nom": {
+            "fr": "Réinstallation du système et transfert de données",
+            "en": "System reinstall and data transfer"
+          },
+          "prix": 100,
+          "unite": "forfait"
+        },
+        {
+          "id": "transfert",
+          "nom": {
+            "fr": "Transfert de données",
+            "en": "Data transfer"
+          },
+          "prix": 70,
+          "unite": "forfait"
+        }
+      ],
+      "description": {
+        "fr": "Certaines interventions prennent plusieurs heures, mais ne demandent pas ma présence devant l’ordinateur en tout temps. Le prix fixe évite de vous facturer toutes ces heures au taux horaire.",
+        "en": "Some jobs take several hours, but do not need me in front of the computer the whole time. A fixed price avoids charging you the hourly rate for all those hours."
+      },
+      "note": {
+        "fr": "Si une complication imprévue demande du travail supplémentaire, je vous explique la situation et les frais proposés. Aucun supplément sans votre accord préalable.",
+        "en": "If an unexpected complication requires extra work, I explain the situation and the proposed charges. No extra fees without your approval first."
+      }
+    },
+    {
+      "id": "evaluation",
+      "titre": {
+        "fr": "Sur évaluation",
+        "en": "Quote after review"
+      },
       "lignes": [
-        { "id": "nettoyage", "nom": { "fr": "Nettoyage (intérieur et logiciels)", "en": "Cleaning (inside and software)" }, "taux": "horaire" },
-        { "id": "assemblage", "nom": { "fr": "Assemblage d’un ordinateur", "en": "Computer assembly" }, "taux": "horaire" },
-        { "id": "mise-a-niveau", "nom": { "fr": "Mise à niveau (SSD, RAM…)", "en": "Upgrade (SSD, RAM…)" }, "taux": "horaire",
-          "note": { "fr": "Pièces au prix coûtant; tarif petit travail si 30&nbsp;minutes et moins", "en": "Parts at cost; small-job rate if 30 minutes or less" } },
-        { "id": "distance", "nom": { "fr": "Soutien à distance", "en": "Remote support" }, "taux": "horaire",
-          "note": { "fr": "Tarif petit travail si 30&nbsp;minutes et moins", "en": "Small-job rate if 30 minutes or less" } },
-        { "id": "configuration", "nom": { "fr": "Configuration et réseau", "en": "Setup and network" }, "taux": "horaire" },
-        { "id": "console", "nom": { "fr": "Réparation mineure de console de jeu", "en": "Minor game console repair" }, "taux": "horaire",
-          "note": { "fr": "Appelez pour savoir si c’est faisable; pièces au prix coûtant", "en": "Call to find out if it can be done; parts at cost" } },
-        { "id": "imprimante-3d", "nom": { "fr": "Entretien et calibration d’imprimante 3D", "en": "3D printer maintenance and calibration" }, "taux": "horaire",
-          "note": { "fr": "Pièces au prix coûtant", "en": "Parts at cost" } }
-      ] },
-    { "id": "evaluation", "titre": { "fr": "Sur évaluation", "en": "Quote after review" },
-      "lignes": [
-        { "id": "recuperation", "nom": { "fr": "Récupération de données", "en": "Data recovery" }, "evaluation": true,
-          "note": { "fr": "Chaque cas est étudié avant de commencer", "en": "Each case is reviewed before starting" } },
-        { "id": "impression", "nom": { "fr": "Impression de projets 3D", "en": "3D project printing" }, "evaluation": true,
-          "note": { "fr": "Selon la taille, le matériau et le temps d’impression", "en": "Depends on size, material and print time" } }
-      ] }
+        {
+          "id": "recuperation",
+          "nom": {
+            "fr": "Récupération de données",
+            "en": "Data recovery"
+          },
+          "evaluation": true,
+          "note": {
+            "fr": "Chaque cas est étudié avant de commencer",
+            "en": "Each case is reviewed before starting"
+          }
+        },
+        {
+          "id": "impression",
+          "nom": {
+            "fr": "Impression de projets 3D",
+            "en": "3D project printing"
+          },
+          "evaluation": true,
+          "note": {
+            "fr": "Selon la taille, le matériau et le temps d’impression",
+            "en": "Depends on size, material and print time"
+          }
+        }
+      ],
+      "description": {
+        "fr": "Pour ces projets, le prix dépend du travail à faire. Il est discuté avec vous avant de commencer.",
+        "en": "For these projects, the price depends on the work involved. It is discussed with you before work starts."
+      }
+    }
   ]
 }

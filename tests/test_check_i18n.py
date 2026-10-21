@@ -1,3 +1,4 @@
+import base64
 import importlib.util
 import json
 import os
@@ -39,7 +40,37 @@ class Pure(unittest.TestCase):
         self.assertEqual(ci.label_keys(html), ['a', 'b'])
 
     def test_label_values(self):
-        self.assertEqual(ci.label_values('<span data-text="tel"> 418-391-1620 </span>'), {'tel': '418-391-1620'})
+        self.assertEqual(ci.label_values('<span data-text="tel"> 202-555-0123 </span>'), {'tel': '202-555-0123'})
+
+    def test_encoded_contact_values(self):
+        values = {'tel': '202-555-0123', 'tel-lien': '+12025550123', 'courriel': 'hello@example.com'}
+        html = ''.join('<span data-text="{}" data-encoding="base64">{}</span>'.format(
+            key, base64.b64encode(value.encode()).decode()) for key, value in values.items())
+        self.assertEqual(ci.label_values(html), values)
+        files = {'shared/libelles.html': html, 'shared/libelles.en.html': html}
+        self.assertEqual(ci.phone_problems(files.get), [])
+
+    def test_invalid_contact_encoding_reported(self):
+        html = '<span data-text="tel" data-encoding="base64">not!base64</span>'
+        files = {'shared/libelles.html': html, 'shared/libelles.en.html': html}
+        self.assertTrue(ci.phone_problems(files.get))
+
+    def test_live_contacts_absent_from_source(self):
+        from pathlib import Path
+        root = Path(HERE).parent
+        labels = (root / ci.LABELS).read_text(encoding='utf-8')
+        values = ci.label_values(labels)
+        for key in ci.SAME_VALUE:
+            self.assertIn('data-text="{}" data-encoding="base64"'.format(key), labels)
+            self.assertTrue(values[key])
+        paths = [*root.glob('*.html'), *root.glob('*.md')]
+        for folder in ('assets', 'shared', 'en', 'docs', 'tests'):
+            paths += [p for p in (root / folder).rglob('*') if p.suffix in ('.html', '.js', '.json', '.md', '.py')]
+        for path in paths:
+            source = path.read_text(encoding='utf-8')
+            for key in ci.SAME_VALUE:
+                with self.subTest(file=str(path.relative_to(root)), key=key):
+                    self.assertNotIn(values[key], source)
 
     def test_view_ids(self):
         self.assertEqual(ci.view_ids('<section data-view="tarifs" data-title="T"></section>'), ['tarifs'])
@@ -88,10 +119,10 @@ class Pure(unittest.TestCase):
         self.assertEqual(len(ci.slug_problems({'en': {}, 'aliases': {'tarifs': 'contact'}}, frozenset({'tarifs'}))), 1)
 
     def test_phone_same_in_both(self):
-        same = '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span><span data-text="courriel">a@b.ca</span>'
+        same = '<span data-text="tel">418</span><span data-text="tel-lien">+12025550123</span><span data-text="courriel">a@b.ca</span>'
         files = {'shared/libelles.html': same, 'shared/libelles.en.html': same}
         self.assertEqual(ci.phone_problems(files.get), [])
-        files['shared/libelles.en.html'] = files['shared/libelles.en.html'].replace('+14183911620', '+14183911621')
+        files['shared/libelles.en.html'] = files['shared/libelles.en.html'].replace('+12025550123', '+12025550124')
         self.assertEqual(len(ci.phone_problems(files.get)), 1)
 
     def test_phone_link_digits_only(self):
@@ -118,7 +149,7 @@ class Pure(unittest.TestCase):
 
 
     def test_email_same_in_both(self):
-        fr = '<span data-text="tel">418</span><span data-text="tel-lien">+14183911620</span><span data-text="courriel">a@b.ca</span>'
+        fr = '<span data-text="tel">418</span><span data-text="tel-lien">+12025550123</span><span data-text="courriel">a@b.ca</span>'
         files = {'shared/libelles.html': fr, 'shared/libelles.en.html': fr.replace('a@b.ca', 'x@b.ca')}
         self.assertEqual(len(ci.phone_problems(files.get)), 1)
 

@@ -17,7 +17,7 @@
 - Every `shared/*.html` has an `.en.html` twin keeping the French ids (`data-view`, `h2`/`h3` ids, `data-text` keys); only visible text, `data-title` change.
 - All visible text editable in HTML, never only in `app.js`; `T('key', 'fallback')` fallback identical to the French file's text.
 - One source per fact: page order in `ORDER` (app.js), prices in `shared/tarifs.json`, phone in `shared/libelles*.html` keys `tel` / `tel-lien`.
-- Phone: display `418-391-1620`, link value `+14183911620` (`tel:+14183911620`, `sms:+14183911620`). Never in `AGENTS.md`/`CLAUDE.md`.
+- Phone: display `[contact value decoded in browser]`, link value `[contact value decoded in browser]` (`tel:[contact value decoded in browser]`, `sms:[contact value decoded in browser]`). Never in `AGENTS.md`/`CLAUDE.md`.
 - No street address published. Taxes: none charged (small supplier).
 - `localStorage` keys: `services-theme` (`light|auto|dark`), `services-taille` (`normale|grande|tres-grande`), `services-lang` (`fr|en`); every access in try/catch; no cookies.
 - Base font 18px; font-size steps 100 % / 125 % / 150 % of that; sizes in `rem`; no horizontal scroll at 150 % on a 360px-wide viewport.
@@ -188,7 +188,7 @@ class Pure(unittest.TestCase):
         self.assertEqual(ci.label_keys(html), ['a', 'b'])
 
     def test_label_values(self):
-        self.assertEqual(ci.label_values('<span data-text="tel"> 418-391-1620 </span>'), {'tel': '418-391-1620'})
+        self.assertEqual(ci.label_values('<span data-text="tel"> [contact value decoded in browser] </span>'), {'tel': '[contact value decoded in browser]'})
 
     def test_view_ids(self):
         self.assertEqual(ci.view_ids('<section data-view="tarifs" data-title="T"></section>'), ['tarifs'])
@@ -671,8 +671,8 @@ Expected: all `ok`. (Light accent is `#1a6b5f`, darker than the spec's `#1f7a6d`
 <span data-text="menu-services">Services</span>
 <span data-text="menu-tarifs">Tarifs</span>
 <span data-text="menu-contact">Contact</span>
-<span data-text="tel">418-391-1620</span>
-<span data-text="tel-lien">+14183911620</span>
+<span data-text="tel">[contact value decoded in browser]</span>
+<span data-text="tel-lien">[contact value decoded in browser]</span>
 <span data-text="erreur-chargement">Impossible de charger le contenu. Rechargez la page.</span>
 <span data-text="erreur-tarifs">Les tarifs n’ont pas pu être chargés. Appelez-nous pour les connaître.</span>
 <span data-text="unite-heure">de l’heure</span>
@@ -697,7 +697,7 @@ Expected: all `ok`. (Light accent is `#1a6b5f`, darker than the spec's `#1f7a6d`
   <h1>Votre ordinateur vous donne du fil à retordre&nbsp;?</h1>
   <p class="lead">Jonathan Lafleur, technicien PC et Mac dans la Baie-des-Chaleurs. Je règle vos problèmes à distance, ou vous déposez votre ordinateur chez moi.</p>
   <div class="actions">
-    <a class="btn" data-tel href="#">Appelez au <span data-phone>418-391-1620</span></a>
+    <a class="btn" data-tel href="#">Appelez au <span data-phone>[contact value decoded in browser]</span></a>
     <a class="btn btn-alt" data-sms href="#">Envoyez un texto</a>
   </div>
   <ul class="cards">
@@ -712,7 +712,7 @@ Expected: all `ok`. (Light accent is `#1a6b5f`, darker than the spec's `#1f7a6d`
 `shared/accueil.en.html` (same structure, ids and attributes; `data-title="Home"`):
 - h1 “Is your computer giving you a hard time?”
 - lead “Jonathan Lafleur, PC and Mac technician in the Baie-des-Chaleurs. I fix your problems remotely, or you drop your computer off at my place.”
-- buttons “Call <span data-phone>418-391-1620</span>” / “Send a text”
+- buttons “Call <span data-phone>[contact value decoded in browser]</span>” / “Send a text”
 - cards “Remote” — “With your permission, I take control of your screen while we talk on the phone. Nothing to carry.”; “Drop-off” — “Bring your computer by appointment. You get the address when you book.”; “Clear prices” — “Free diagnostic if you go ahead with the work. No taxes added. <a href="#/tarifs">See the prices</a>”
 - “<a href="#/services">See all services</a>”
 
@@ -784,18 +784,18 @@ Stub pages (replaced in Tasks 3–4): `shared/services.html` → `<section data-
 </header>
 <main id="view" tabindex="-1">
   <p>Chargement…</p>
-  <noscript><p>Ce site a besoin de JavaScript. Appelez au 418-391-1620.</p></noscript>
+  <noscript><p>Ce site a besoin de JavaScript. Appelez au [contact value decoded in browser].</p></noscript>
 </main>
 <footer class="site-foot">Jonathan Lafleur · Technicien PC et Mac · Baie-des-Chaleurs · Aucune taxe applicable</footer>
 <nav class="callbar" aria-label="Joindre le technicien">
-  <a class="btn" data-tel href="tel:+14183911620">Appeler</a>
-  <a class="btn btn-alt" data-sms href="sms:+14183911620">Texto</a>
+  <a class="btn" data-tel href="tel:[contact value decoded in browser]">Appeler</a>
+  <a class="btn btn-alt" data-sms href="sms:[contact value decoded in browser]">Texto</a>
 </nav>
 </body>
 </html>
 ```
 
-`en/index.html`: same file with these differences only — `<html lang="en" data-root="../">`; title “Jonathan Lafleur · PC and Mac technician”; description “PC and Mac technician in the Baie-des-Chaleurs: troubleshooting, viruses, upgrades, data transfer, remote support. Call or text.”; the inline script body is the theme/taille lines plus `if (!localStorage.getItem('services-lang')) localStorage.setItem('services-lang', 'en');` (no redirect); asset URLs `../assets/…`; brand “Jonathan Lafleur · PC and Mac”; menu `aria-label="Main menu"`; lang link `href="../" hreflang="fr" lang="fr" aria-label="Version française">FR`; size group “Text size” with labels “Text size: normal / large / extra large”; theme group “Theme”, “Light / Auto / Dark”; “Loading…”; noscript “This site needs JavaScript. Call 418-391-1620.”; footer “Jonathan Lafleur · PC and Mac technician · Baie-des-Chaleurs · No taxes charged”; callbar `aria-label="Reach the technician"`, “Call” / “Text”.
+`en/index.html`: same file with these differences only — `<html lang="en" data-root="../">`; title “Jonathan Lafleur · PC and Mac technician”; description “PC and Mac technician in the Baie-des-Chaleurs: troubleshooting, viruses, upgrades, data transfer, remote support. Call or text.”; the inline script body is the theme/taille lines plus `if (!localStorage.getItem('services-lang')) localStorage.setItem('services-lang', 'en');` (no redirect); asset URLs `../assets/…`; brand “Jonathan Lafleur · PC and Mac”; menu `aria-label="Main menu"`; lang link `href="../" hreflang="fr" lang="fr" aria-label="Version française">FR`; size group “Text size” with labels “Text size: normal / large / extra large”; theme group “Theme”, “Light / Auto / Dark”; “Loading…”; noscript “This site needs JavaScript. Call [contact value decoded in browser].”; footer “Jonathan Lafleur · PC and Mac technician · Baie-des-Chaleurs · No taxes charged”; callbar `aria-label="Reach the technician"`, “Call” / “Text”.
 
 - [ ] **Step 8: Write `assets/app.js`**
 
@@ -899,7 +899,7 @@ Stub pages (replaced in Tasks 3–4): `shared/services.html` → `<section data-
 
   // ---------- Phone ----------
   function phoneLinks(node) {
-    var number = plain(T('tel', '418-391-1620')), target = plain(T('tel-lien', '+14183911620'));
+    var number = plain(T('tel', '[contact value decoded in browser]')), target = plain(T('tel-lien', '[contact value decoded in browser]'));
     node.querySelectorAll('[data-tel]').forEach(function (a) { a.href = 'tel:' + target; });
     node.querySelectorAll('[data-sms]').forEach(function (a) { a.href = 'sms:' + target; });
     node.querySelectorAll('[data-phone]').forEach(function (el) { el.textContent = number; });
@@ -1015,7 +1015,7 @@ node tests/cdp.mjs 'http://localhost:8765/#/' \
   "[...document.querySelectorAll('#menu a')].map(a => a.getAttribute('href') + ' ' + a.textContent).join(' | ')" \
   "document.querySelector('.callbar [data-tel]').href + ' ' + document.querySelector('.callbar [data-sms]').href"
 ```
-Expected: `"Votre ordinateur vous donne du fil à retordre ?"` (with a non-breaking space), `"#/ Accueil | #/services Services | #/tarifs Tarifs | #/contact Contact"`, `"tel:+14183911620 sms:+14183911620"`, and `third-party: []`.
+Expected: `"Votre ordinateur vous donne du fil à retordre ?"` (with a non-breaking space), `"#/ Accueil | #/services Services | #/tarifs Tarifs | #/contact Contact"`, `"tel:[contact value decoded in browser] sms:[contact value decoded in browser]"`, and `third-party: []`.
 
 Run (English, French word in the address is rewritten, unknown route goes home):
 ```bash
@@ -1123,7 +1123,7 @@ Expected now: `""` and `null`-style errors (stubs have no h2 / buttons) — FAIL
   <h1>Contact</h1>
   <p class="lead">Appelez ou envoyez un texto pour prendre rendez-vous. Je vous rappelle rapidement.</p>
   <div class="actions">
-    <a class="btn" data-tel href="#">Appelez au <span data-phone>418-391-1620</span></a>
+    <a class="btn" data-tel href="#">Appelez au <span data-phone>[contact value decoded in browser]</span></a>
     <a class="btn btn-alt" data-sms href="#">Envoyez un texto</a>
   </div>
   <ul class="cards">
@@ -1134,11 +1134,11 @@ Expected now: `""` and `null`-style errors (stubs have no h2 / buttons) — FAIL
 </section>
 ```
 
-`shared/contact.en.html` — same structure, `data-title="Contact"`: lead “Call or send a text to book an appointment. I’ll call you back quickly.”; buttons “Call <span data-phone>418-391-1620</span>” / “Send a text”; cards “By appointment” — “Remote anywhere in Quebec, or drop-off in the Baie-des-Chaleurs.”; “Drop-off” — “The drop-off address is given when you book.”; “Before you call” — “Note the computer’s brand and what you see on the screen. A photo of the error message helps a lot.”
+`shared/contact.en.html` — same structure, `data-title="Contact"`: lead “Call or send a text to book an appointment. I’ll call you back quickly.”; buttons “Call <span data-phone>[contact value decoded in browser]</span>” / “Send a text”; cards “By appointment” — “Remote anywhere in Quebec, or drop-off in the Baie-des-Chaleurs.”; “Drop-off” — “The drop-off address is given when you book.”; “Before you call” — “Note the computer’s brand and what you see on the screen. A photo of the error message helps a lot.”
 
 - [ ] **Step 4: Run the browser check to verify it passes**
 
-Same commands as Step 1. Expected: `"depannage,materiel,donnees,configuration"`; `"tel:+14183911620"`, `"418-391-1620"`. Also `node tests/cdp.mjs 'http://localhost:8765/en/#/services/materiel' "document.getElementById('materiel').getBoundingClientRect().top < 200"` → `true`.
+Same commands as Step 1. Expected: `"depannage,materiel,donnees,configuration"`; `"tel:[contact value decoded in browser]"`, `"[contact value decoded in browser]"`. Also `node tests/cdp.mjs 'http://localhost:8765/en/#/services/materiel' "document.getElementById('materiel').getBoundingClientRect().top < 200"` → `true`.
 
 - [ ] **Step 5: Check and commit**
 

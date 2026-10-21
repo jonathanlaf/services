@@ -1,22 +1,22 @@
 <section data-view="tarifs" data-title="Tarifs" class="page">
   <h1>Tarifs</h1>
-  <p class="lead">Des prix simples, les mêmes pour Mac et PC.</p>
-  <ul>
-    <li>Un petit travail de 30&nbsp;minutes et moins coûte un prix fixe.</li>
-    <li>Au-delà, c’est le taux horaire, avec un minimum d’une heure, puis par tranche de 30&nbsp;minutes.</li>
-    <li>Le diagnostic est gratuit si vous faites faire les travaux.</li>
-    <li>Les pièces sont facturées au prix coûtant et payées d’avance.</li>
-    <li>Si l’estimation change, vous êtes avisé avant que je continue.</li>
-    <li>Le délai varie selon le travail, mais c’est habituellement 2&nbsp;jours ouvrables.</li>
+  <p class="lead">Trouvez le tarif qui correspond à votre besoin. Les mêmes prix pour Mac et PC.</p>
+  <div data-tarifs="base"></div>
+  <p class="note">Les pièces ne sont pas comprises dans les tarifs. Leur prix est discuté avec vous avant tout achat.</p>
+  <h2>Le temps facturé, simplement</h2>
+  <ul class="cards services-cards">
+    <li class="card"><h3>À distance ou à l’atelier</h3><p>Jusqu’à 30&nbsp;minutes&nbsp;: tarif petit travail. Dès 31&nbsp;minutes&nbsp;: une heure facturée.</p><p>Après la première heure, chaque demi-heure commencée est facturée. Les services à prix fixe gardent leur propre tarif.</p></li>
+    <li class="card"><h3>À domicile</h3><p>Minimum d’une heure facturée, comprenant le travail sur place et le temps de déplacement.</p><p>Après la première heure, chaque demi-heure commencée est facturée. Le tarif petit travail ne s’applique pas.</p></li>
   </ul>
-  <h2 id="sur-rendez-vous">Sur rendez-vous, de trois façons</h2>
-  <ul class="cards">
-    <li class="card"><h3>Dépôt</h3><p>Vous apportez votre ordinateur au moment convenu. L’adresse vous est donnée à la prise de rendez-vous.</p></li>
-    <li class="card"><h3>À domicile</h3><p>Dans la Baie-des-Chaleurs, pour la configuration et l’installation chez vous&nbsp;: imprimante, Wi-Fi, nouvel ordinateur. Le temps est compté à partir de mon départ de chez moi.</p></li>
-    <li class="card"><h3>À distance</h3><p>Où que vous soyez. Je vois votre écran, avec votre permission, pendant que nous parlons au téléphone.</p></li>
+  <details class="billing-details"><summary>Voir des exemples de facturation</summary>
+  <ul class="billing-examples">
+    <li>30&nbsp;minutes à distance ou à l’atelier&nbsp;: <strong data-price-example="small"></strong>.</li>
+    <li>31&nbsp;minutes à distance ou à l’atelier&nbsp;: <strong data-price-example="hour"></strong> (une heure facturée).</li>
+    <li>1&nbsp;h&nbsp;30 à distance ou à l’atelier&nbsp;: <strong data-price-example="ninety"></strong>.</li>
+    <li>À domicile&nbsp;: 30&nbsp;minutes sur place + 30&nbsp;minutes de déplacement = une heure facturée, soit <strong data-price-example="hour"></strong>.</li>
   </ul>
-  <div data-tarifs></div>
-  <p class="note">Mac et PC&nbsp;: mêmes tarifs.</p>
-  <p class="note">Avant d’appeler, notez la marque de l’ordinateur et ce qui se passe à l’écran. Une photo du message d’erreur aide beaucoup.</p>
-  <p><a href="#/contact">Prendre rendez-vous</a></p>
+  <p class="note">Ces exemples concernent les services facturés selon le temps. Les pièces sont en supplément.</p>
+  </details>
+  <div data-tarifs="services"></div>
+  <div class="service-next"><h2>Vous avez trouvé ce qu’il vous faut&nbsp;?</h2><p>Parlons de votre besoin et convenons d’un rendez-vous.</p><a class="btn btn-discover" href="#/contact">Réserver<span aria-hidden="true">&nearr;</span></a></div>
 </section>

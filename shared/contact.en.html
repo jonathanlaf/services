@@ -1,8 +1,72 @@
-<section data-view="contact" data-title="Contact" class="page">
-  <h1>Contact</h1>
+<section data-view="contact" data-title="Book now" class="page">
+  <h1>Book now</h1>
+  <p class="lead">Call, text or email me. Tell me what you need and we’ll arrange an appointment.</p>
   <div class="actions">
-    <a class="btn" data-tel href="#">Call <span data-phone>418-391-1620</span></a>
+    <a class="btn" data-tel href="#">Call <span data-phone></span></a>
     <a class="btn btn-alt" data-sms href="#">Send a text</a>
-    <a class="btn btn-alt" data-mail href="#">Email <span data-email>me@jonathanlafleur.ca</span></a>
+    <a class="btn btn-alt" data-mail href="#">Email <span data-email></span></a>
   </div>
+
+  <div class="card booking-panel">
+    <h2>Tell me what you need</h2>
+    <p>A message is all it takes to get started. I’ll reply to arrange an appointment.</p>
+    <form class="booking-form" data-booking-form method="post" novalidate
+      data-validation-error="Please correct the fields marked below."
+      data-required-error="Please fill in this field."
+      data-email-error="Enter a valid email address."
+      data-length-error="This text exceeds the allowed length."
+      data-field-error="Please check this field and try again."
+      data-sending="Sending…"
+      data-success="Thank you! Your message has been sent. Your appointment will be confirmed after we talk."
+      data-error="We couldn’t confirm that your message was sent. Your message is still here. You can try again or reach me by phone or text."
+      data-unavailable="The form is currently unavailable. You can reach me by phone, text or email.">
+      <input class="form-honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="note">Only your email is required.</p>
+      <label for="booking-name">Your name (optional)</label>
+      <input id="booking-name" aria-describedby="booking-name-error" name="name" type="text" autocomplete="name" maxlength="100">
+      <p class="field-error" id="booking-name-error" data-field-error="name" hidden></p>
+      <label for="booking-email">Your email</label>
+      <input id="booking-email" aria-describedby="booking-email-error" name="email" type="email" autocomplete="email" maxlength="254" required>
+      <p class="field-error" id="booking-email-error" data-field-error="email" hidden></p>
+      <label for="booking-phone">Your phone number (optional)</label>
+      <input id="booking-phone" aria-describedby="booking-phone-error" name="phone" type="tel" autocomplete="tel" maxlength="40">
+      <p class="field-error" id="booking-phone-error" data-field-error="phone" hidden></p>
+      <label for="booking-location">Where would you like the service? (optional)</label>
+      <select id="booking-location" aria-describedby="booking-location-error" name="location">
+        <option value="">No preference</option>
+        <option value="workshop">At the workshop</option>
+        <option value="home">At your home</option>
+        <option value="remote">Remote</option>
+      </select>
+      <p class="field-error" id="booking-location-error" data-field-error="location" hidden></p>
+      <label for="booking-contact-time">When would you prefer to be contacted? (optional)</label>
+      <select id="booking-contact-time" aria-describedby="booking-contact-time-error" name="contact_time">
+        <option value="">No preference</option>
+        <option value="day">Daytime</option>
+        <option value="evening">Evening</option>
+      </select>
+      <p class="field-error" id="booking-contact-time-error" data-field-error="contact_time" hidden></p>
+      <label for="booking-message">How can I help? (optional)</label>
+      <textarea id="booking-message" aria-describedby="booking-message-error" name="message" rows="5" maxlength="2000"></textarea>
+      <p class="field-error" id="booking-message-error" data-field-error="message" hidden></p>
+      <p class="note form-privacy">Your message is sent through Formspree so I can reply. <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree privacy policy</a>.</p>
+      <button class="btn btn-discover" type="submit" disabled>Send my request<span aria-hidden="true">&nearr;</span></button>
+      <p class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true"></p>
+    </form>
+  </div>
+  <h2 id="sur-rendez-vous">Choose what works for you</h2>
+  <ul class="cards">
+    <li class="card"><h3>At the workshop</h3><p>Bring your computer at the agreed time. You get the address when you book.</p></li>
+    <li class="card"><h3>At your home</h3><p>In the Baie-des-Chaleurs, for setup and installation at your place: printer, Wi-Fi, new computer. Travel time is billed.</p></li>
+    <li class="card"><h3>Remote</h3><p>Wherever you are. With your permission, I see your screen while we talk on the phone.</p></li>
+  </ul>
+  <h2>Before you book</h2>
+  <ul>
+    <li>The diagnostic is free if you go ahead with the work.</li>
+    <li>Parts are not included in the rates. Their price is discussed with you before purchase, and they are paid upfront.</li>
+    <li>If an unexpected complication means extra charges, I explain them and wait for your approval before continuing.</li>
+    <li>Turnaround depends on the job, but is usually 2 business days.</li>
+  </ul>
+  <p class="note">Before you call, note the computer’s brand and what you see on the screen. A photo of the error message helps a lot.</p>
+  <p><a class="btn btn-discover" href="#/tarifs">See the prices<span aria-hidden="true">&nearr;</span></a></p>
 </section>

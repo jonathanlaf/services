@@ -3,6 +3,8 @@
 
 Run by .githooks/pre-commit with --staged (reads the git index), or by hand on the working tree.
 """
+import base64
+import binascii
 import json
 import os
 import re
@@ -36,7 +38,16 @@ def label_keys(html):
 
 
 def label_values(html):
-    return {k: v.strip() for k, v in re.findall(r'data-text="([^"]+)"[^>]*>(.*?)</', strip_comments(html), flags=re.S)}
+    values = {}
+    for key, attrs, value in re.findall(r'data-text="([^"]+)"([^>]*)>(.*?)</', strip_comments(html), flags=re.S):
+        value = value.strip()
+        if 'data-encoding="base64"' in attrs:
+            try:
+                value = base64.b64decode(value, validate=True).decode('utf-8')
+            except (ValueError, binascii.Error, UnicodeDecodeError):
+                value = ''
+        values[key] = value
+    return values
 
 
 def view_ids(html):
@@ -134,6 +145,8 @@ def phone_problems(read):
     va, vb = label_values(a), label_values(b)
     problems = ['data-text "{}" is missing from {}'.format(k, LABELS) for k in SAME_VALUE if k not in va]
     problems += ['data-text "{}" differs between {} and {}'.format(k, LABELS, twin(LABELS)) for k in SAME_VALUE if k in va and va[k] != vb.get(k)]
+    problems += ['data-text "{}" must decode to a non-empty value'.format(k)
+                 for k in SAME_VALUE if k in va and not va[k]]
     if 'tel-lien' in va and not re.fullmatch(r'\+\d{11}', va['tel-lien']):
         problems.append('data-text "tel-lien" must be + and 11 digits, like +14185550000')
     return problems

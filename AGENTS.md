@@ -28,7 +28,9 @@ plain HTML, CSS and one JavaScript file. Pages are loaded with `fetch`, so test 
 - `shared/<page>.html` + `shared/<page>.en.html` — one page each: `accueil`, `services`, `tarifs`, `contact`. Each holds one
   `<section data-view="<page>" data-title="…">`.
 - `shared/libelles.html` (+ `.en.html`) — menu and interface labels as `<span data-text="key">…</span>`, the phone
-  number (`tel`: as displayed, `tel-lien`: `+1` and digits only) and the email (`courriel`); all identical in both files.
+  number (`tel`: as displayed, `tel-lien`: `+1` and digits only) and the email (`courriel`). These three values
+  use `data-encoding="base64"`; decode them for validation and editing. Decoded values match in both languages.
+  Keep contact literals out of other source files, including fallbacks and design notes.
 - `shared/tarifs.json` — every price, in both languages: the one source of the prices table (`[data-tarifs]` slot in
   `shared/tarifs.html`). A line has `prix` + `unite` (`heure` or `forfait`), or `"taux": "horaire"` (shown as the hourly
   rate, taken from the line `taux-horaire`), or `"evaluation": true` (quote after review). Change a price here only.

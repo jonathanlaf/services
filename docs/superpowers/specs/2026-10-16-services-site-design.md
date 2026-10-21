@@ -20,7 +20,7 @@ at any font size, in light or dark mode.
 - Served by GitHub Pages from `main` of `jonathanlaf/services` (custom domain already configured, HTTPS enforced).
 - Service delivery: remote support and drop-off only (no home visits). The drop-off address is never published; it is
   given when booking.
-- Contact: phone call and text only, 418-391-1620, via `tel:` and `sms:` links. No form, no third-party service.
+- Contact: phone call and text only, [contact value decoded in browser], via `tel:` and `sms:` links. No form, no third-party service.
 - The phone number appears only in site content (`shared/libelles*.html` / contact pages), never in `AGENTS.md`/`CLAUDE.md`.
 - Taxes: small supplier (petit fournisseur), no GST/QST charged. Prices are final.
 - Fonts: system fonts only (no external requests; fast on rural connections).
@@ -70,7 +70,7 @@ files. Dropped from kohai: print/Paged.js, games, kata machinery, public changel
   Mac and PC for all.
 - **Tarifs:** billing rules in prose, then the table drawn from `tarifs.json`, then "Taxes non applicables / No taxes
   charged" and "Mac et PC : mêmes tarifs / Mac and PC: same rates".
-- **Contact:** 418-391-1620 as large `tel:` and `sms:` buttons, "Sur rendez-vous / By appointment", remote or drop-off,
+- **Contact:** [contact value decoded in browser] as large `tel:` and `sms:` buttons, "Sur rendez-vous / By appointment", remote or drop-off,
   "L'adresse de dépôt est donnée à la prise de rendez-vous / The drop-off address is given when you book".
 - The call/text button is reachable from every page on phones (top bar or sticky bottom bar).
 
@@ -146,7 +146,7 @@ keys, `tarifs.json` text fields (both non-empty), and `slugs.json` (clean words,
 - `python3 -m unittest tests/test_check_i18n.py`; the pre-commit hook runs the check (`git config core.hooksPath .githooks`).
 - `node tests/cdp.mjs` against a local server (`python3 -m http.server 8765`): `/` and `/en/` load; each route renders;
   the price table has one row per `tarifs.json` line with correctly formatted amounts; the language link keeps the page;
-  `tel:`/`sms:` hrefs are `tel:+14183911620` / `sms:+14183911620`; each font-size step applies and causes no horizontal
+  `tel:`/`sms:` hrefs are `tel:[contact value decoded in browser]` / `sms:[contact value decoded in browser]`; each font-size step applies and causes no horizontal
   scroll at 360px.
 - Manual: phone and desktop widths, light and dark, three font sizes, both languages.
 
