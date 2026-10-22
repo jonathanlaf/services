@@ -192,7 +192,7 @@ def json_file_problems(read, path, check):
 
 
 def git(*args):
-    r = subprocess.run(['git', *args], capture_output=True, text=True)
+    r = subprocess.run(['git', *args], capture_output=True, text=True, encoding='utf-8')
     return r.stdout if r.returncode == 0 else None
 
 
