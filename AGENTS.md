@@ -18,7 +18,7 @@ plain HTML, CSS and one JavaScript file. Pages are loaded with `fetch`, so test 
 
 ## Layout
 
-- `index.html` — French app shell: top bar (brand, menu, language link, font size, theme), `<main id="view">`, call bar, footer.
+- `index.html` — French app shell: top bar (brand, menu, language link, theme toggle), floating text-size panel, `<main id="view">`, call bar, footer.
 - `en/index.html` — English app shell (`lang="en" data-root="../"`), same `app.js`. A change to one shell is made in the other.
 - `assets/app.js` — hash router (`#/`, `#/services`, `#/tarifs`, `#/contact`; French words in files and code,
   `shared/slugs.json` gives the English word, so English readers see `#/prices`), menu, theme, font size, language link,

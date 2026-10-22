@@ -163,7 +163,25 @@
     if (choice === 'normale') root.removeAttribute('data-taille');
     else root.setAttribute('data-taille', choice);
   }
-  choiceButtons('theme-choice', 'services-theme', ['light', 'auto', 'dark'], 'auto', applyTheme);
+  var themeToggle = document.querySelector('.theme-toggle');
+  function darkTheme() { return root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; }
+  function updateThemeControl() {
+    var dark = darkTheme();
+    themeToggle.setAttribute('aria-pressed', String(dark));
+    themeToggle.setAttribute('aria-label', dark ? themeToggle.dataset.lightLabel : themeToggle.dataset.darkLabel);
+    themeToggle.querySelector('svg').innerHTML = dark
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>'
+      : '<path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/>';
+  }
+  var savedTheme = load('services-theme');
+  applyTheme(['light', 'dark'].indexOf(savedTheme) >= 0 ? savedTheme : 'auto');
+  updateThemeControl();
+  themeToggle.addEventListener('click', function () {
+    var next = darkTheme() ? 'light' : 'dark';
+    store('services-theme', next); applyTheme(next); updateThemeControl();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeControl);
+
   choiceButtons('taille-choice', 'services-taille', ['normale', 'grande', 'tres-grande'], 'normale', applySize);
 
   // Leave the edge tab reachable; pause closing while the panel is in use.
@@ -234,11 +252,13 @@
   var menu = document.getElementById('menu');
   function buildMenu() {
     var languageItem = menu.querySelector('.language-item');
+    var themeItem = menu.querySelector('.theme-item');
     menu.innerHTML = ORDER.map(function (id) {
       var hash = id === 'accueil' ? '#/' : '#/' + id;
       return '<li><a href="' + escapeHtml(link(hash)) + '" data-page="' + id + '">' + escapeHtml(pageName(id)) + '</a></li>';
     }).join('');
     if (languageItem) menu.appendChild(languageItem);
+    if (themeItem) menu.appendChild(themeItem);
   }
   // What every page sets: active menu entry, tab title, focus for screen readers
   function frame(id) {

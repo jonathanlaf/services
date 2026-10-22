@@ -266,3 +266,7 @@ a,button,input,select,textarea,summary,[tabindex] { scroll-margin-block:8rem; }
 }
 
 .switch button:focus-visible,.theme-switch button:focus-visible { outline-offset:-4px; }
+
+.menu .theme-toggle { display:inline-flex;align-items:center;justify-content:center;min-width:48px;min-height:48px;padding:.35rem;border:0;border-radius:.5rem;background:transparent;color:var(--fg);cursor:pointer; }
+.menu .theme-toggle:hover { background:var(--card-bg); }
+.theme-toggle svg { width:1.3rem;height:1.3rem; }
