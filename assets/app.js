@@ -390,6 +390,8 @@
         submitted = true;
         fields.forEach(function (field) { field.disabled = true; });
         status.textContent = form.dataset.success;
+        status.tabIndex = -1;
+        status.focus({ preventScroll: true });
       }).catch(function () {
         status.textContent = form.querySelector('[aria-invalid="true"]') ? form.dataset.validationError : form.dataset.error;
         status.classList.add('error');
@@ -426,7 +428,11 @@
     view.appendChild(frag);
     frame(id);
     var target = anchor && document.getElementById(anchor);
-    if (target) target.scrollIntoView(); else { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
+    if (target) {
+      target.tabIndex = -1;
+      target.scrollIntoView();
+      target.focus({ preventScroll: true });
+    } else { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   function showLoadError(err) {
     console.error(err);  // the technical detail is for the console, not the reader
